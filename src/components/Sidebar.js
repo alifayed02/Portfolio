@@ -6,6 +6,16 @@ function Sidebar() {
     const [trafficLightsHovered, setTrafficLightsHovered] = useState(false);
     const [searchText, setSearchText] = useState("");
 
+    const chatHistory = [
+        "Work experience",
+        "Projects",
+        "Skills"
+    ];
+
+    const filteredOptions = chatHistory.filter(option => 
+        option.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <div className="bg-[#DBDBDB] h-full w-1/4 min-w-[300px]">
             {/* Traffic */}
@@ -73,9 +83,9 @@ function Sidebar() {
             <div className="flex flex-col mt-10 ml-5">
                 <p className="text-[#595959] text-sm font-bold">Last month</p>
                 <div className="flex flex-col mt-5">
-                    <p className="mb-2">Work experience</p>
-                    <p className="mb-2">Projects</p>
-                    <p className="mb-2">Skills</p>
+                    {filteredOptions.map((option, index) => (
+                        <p key={index} className="mb-2">{option}</p>
+                    ))}
                 </div>
             </div>
         </div>
