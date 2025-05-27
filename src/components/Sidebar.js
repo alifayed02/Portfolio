@@ -4,6 +4,8 @@ import { FiSidebar } from "react-icons/fi";
 
 function Sidebar() {
     const [trafficLightsHovered, setTrafficLightsHovered] = useState(false);
+    const [searchText, setSearchText] = useState("");
+
     return (
         <div className="bg-[#DBDBDB] h-full w-1/4 min-w-[300px]">
             {/* Traffic */}
@@ -42,10 +44,16 @@ function Sidebar() {
                 </div>
             </div>
             {/* Search */}
-            <div className="flex mt-5 bg-[#D0D0D0] ml-2 mr-2 rounded-xl">
-                <div className="flex pl-3 text-[#5E5E5E] pt-2 pb-2 items-center">
+            <div className="flex mt-5 bg-[#D0D0D0] ml-2 mr-2 pr-6 rounded-xl">
+                <div className="flex pl-3 text-[#5E5E5E] pt-2 pb-2 items-center w-full">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-md" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.75 4.25C7.16015 4.25 4.25 7.16015 4.25 10.75C4.25 14.3399 7.16015 17.25 10.75 17.25C14.3399 17.25 17.25 14.3399 17.25 10.75C17.25 7.16015 14.3399 4.25 10.75 4.25ZM2.25 10.75C2.25 6.05558 6.05558 2.25 10.75 2.25C15.4444 2.25 19.25 6.05558 19.25 10.75C19.25 12.7369 18.5683 14.5645 17.426 16.0118L21.4571 20.0429C21.8476 20.4334 21.8476 21.0666 21.4571 21.4571C21.0666 21.8476 20.4334 21.8476 20.0429 21.4571L16.0118 17.426C14.5645 18.5683 12.7369 19.25 10.75 19.25C6.05558 19.25 2.25 15.4444 2.25 10.75Z" fill="currentColor"></path></svg>
-                    <p className="pl-3">Search</p>
+                    <input
+                        type="text"
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        placeholder="Search"
+                        className="w-full bg-transparent outline-none pl-3 text-[#000] placeholder-[#5E5E5E]"
+                    />
                 </div>
             </div>
             {/* Options */}

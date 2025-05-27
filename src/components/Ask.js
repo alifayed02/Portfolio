@@ -6,7 +6,6 @@ function Ask() {
 
     const handleTextChange = (e) => {
         setText(e.target.value);
-        // Auto-adjust height
         e.target.style.height = 'auto';
         e.target.style.height = Math.min(e.target.scrollHeight, 300) + 'px';
     };
