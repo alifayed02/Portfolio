@@ -1,20 +1,26 @@
 import { useState } from "react";
+import { useChat } from '../contexts/ChatContext';
 
 import { FiSidebar } from "react-icons/fi";
 
 function Sidebar() {
     const [trafficLightsHovered, setTrafficLightsHovered] = useState(false);
     const [searchText, setSearchText] = useState("");
+    const { chats, currentChatId, switchChat } = useChat();
 
     const chatHistory = [
-        "Work experience",
-        "Projects",
-        "Skills"
+        { id: 'work-experience', title: 'Work experience' },
+        { id: 'projects', title: 'Projects' },
+        { id: 'skills', title: 'Skills' }
     ];
 
     const filteredOptions = chatHistory.filter(option => 
-        option.toLowerCase().includes(searchText.toLowerCase())
+        option.title.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    const handleChatClick = (chatId) => {
+        switchChat(chatId);
+    };
 
     return (
         <div className="bg-[#DBDBDB] h-screen w-1/4 min-w-[300px] flex flex-col">
@@ -85,7 +91,17 @@ function Sidebar() {
                     <p className="text-[#595959] text-sm font-bold">Last month</p>
                     <div className="flex flex-col mt-5">
                         {filteredOptions.map((option, index) => (
-                            <p key={index} className="mb-2">{option}</p>
+                            <div
+                                key={option.id}
+                                onClick={() => handleChatClick(option.id)}
+                                className={`mb-2 p-2 rounded cursor-pointer transition-colors ${
+                                    currentChatId === option.id 
+                                        ? 'bg-[#C0C0C0] text-[#000]' 
+                                        : 'text-[#000] hover:bg-[#C8C8C8]'
+                                }`}
+                            >
+                                <p>{option.title}</p>
+                            </div>
                         ))}
                     </div>
                 </div>
