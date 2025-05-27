@@ -6,7 +6,7 @@ import { FiSidebar } from "react-icons/fi";
 function Sidebar() {
     const [trafficLightsHovered, setTrafficLightsHovered] = useState(false);
     const [searchText, setSearchText] = useState("");
-    const { chats, currentChatId, switchChat } = useChat();
+    const { currentChatId, switchChat } = useChat();
 
     const chatHistory = [
         { id: 'work-experience', title: 'Work experience' },
