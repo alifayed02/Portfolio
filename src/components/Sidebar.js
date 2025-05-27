@@ -17,7 +17,7 @@ function Sidebar() {
     );
 
     return (
-        <div className="bg-[#DBDBDB] h-full w-1/4 min-w-[300px]">
+        <div className="bg-[#DBDBDB] h-screen w-1/4 min-w-[300px] flex flex-col">
             {/* Traffic */}
             <div className="flex">
                 <div 
@@ -80,12 +80,23 @@ function Sidebar() {
                 </div>
             </div>
             {/* History */}
-            <div className="flex flex-col mt-10 ml-5">
-                <p className="text-[#595959] text-sm font-bold">Last month</p>
-                <div className="flex flex-col mt-5">
-                    {filteredOptions.map((option, index) => (
-                        <p key={index} className="mb-2">{option}</p>
-                    ))}
+            <div className="flex flex-col h-full overflow-y-auto">
+                <div className="flex flex-col mt-10 ml-5">
+                    <p className="text-[#595959] text-sm font-bold">Last month</p>
+                    <div className="flex flex-col mt-5">
+                        {filteredOptions.map((option, index) => (
+                            <p key={index} className="mb-2">{option}</p>
+                        ))}
+                    </div>
+                </div>
+                <div className="flex ml-5 mt-auto mb-5">
+                    <div className="flex items-center">
+                        <img className="rounded-2xl" 
+                        src="https://lh3.googleusercontent.com/a/AEdFTp7Ah1YJM1tPoxyVzJrADtdN_bLQn7HOYW2zYa8E=s96-c" alt="User" width="32" height="32" class="rounded-xs" referrerpolicy="no-referrer"/>
+                        <div className="flex flex-col">
+                            <p className="text-[#000]  font-normal ml-5">Ali Fayed</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
