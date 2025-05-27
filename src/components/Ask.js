@@ -1,13 +1,30 @@
 import { PiSelection } from "react-icons/pi";
+import { useState } from "react";
 
 function Ask() {
+    const [text, setText] = useState("");
+
+    const handleTextChange = (e) => {
+        setText(e.target.value);
+        // Auto-adjust height
+        e.target.style.height = 'auto';
+        e.target.style.height = Math.min(e.target.scrollHeight, 300) + 'px';
+    };
+
     return (
         <div className="flex flex-col w-full min-h-[150px]">
             <div className="flex flex-col h-full p-4">
                 <div className="flex flex-col h-full bg-[#F2F2F2] rounded-2xl">
                     <div className="flex flex-col h-full ml-6 justify-center">
                         <div className="flex text-[#5E5E5E] mb-6">
-                            <p>Ask anything</p>
+                            <textarea
+                                value={text}
+                                onChange={handleTextChange}
+                                placeholder="Ask anything"
+                                className="w-full text-[#000] bg-transparent outline-none resize-none overflow-y-auto max-h-[300px] placeholder-[#5E5E5E]"
+                                rows={1}
+                                style={{ height: 'auto' }}
+                            />
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
