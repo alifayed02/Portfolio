@@ -5,7 +5,7 @@ import { useChat } from '../contexts/ChatContext';
 function Ask() {
     const [text, setText] = useState("");
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const { currentChatId, addMessage } = useChat();
+    const { currentChatId, addMessage, getCurrentChat } = useChat();
 
     const handleTextChange = (e) => {
         const newText = e.target.value;
@@ -28,13 +28,15 @@ function Ask() {
         e.target.style.height = Math.min(e.target.scrollHeight, 300) + 'px';
     };
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (!text.trim() || !currentChatId) return;
         
-        // Add user message
+        const userMessage = text.trim();
+        
+        // Add user message immediately
         addMessage(currentChatId, {
             type: 'user',
-            content: text.trim()
+            content: userMessage
         });
         
         // Clear the input
@@ -46,8 +48,46 @@ function Ask() {
             textarea.style.height = 'auto';
         }
         
-        // TODO: Here you would typically send the message to your backend
-        // and then add the assistant's response
+        try {
+            // Get current chat history for the API call
+            const currentChat = getCurrentChat();
+            const history = currentChat ? currentChat.messages : [];
+            
+            // Make API call to backend
+            const response = await fetch('http://localhost:3001/api/v1/ai/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    history: history,
+                    query: userMessage
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Add AI response to chat
+                addMessage(currentChatId, {
+                    type: 'assistant',
+                    content: data.response
+                });
+            } else {
+                // Handle error response
+                addMessage(currentChatId, {
+                    type: 'assistant',
+                    content: `Sorry, I encountered an error: ${data.response}`
+                });
+            }
+        } catch (error) {
+            // Handle network or other errors
+            addMessage(currentChatId, {
+                type: 'assistant',
+                content: `Sorry, I'm having trouble connecting to the server. Please try again later.`
+            });
+            console.error('Error calling AI chat API:', error);
+        }
     };
 
     const handleKeyPress = (e) => {
