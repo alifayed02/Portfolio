@@ -53,8 +53,13 @@ function Ask() {
             const currentChat = getCurrentChat();
             const history = currentChat ? currentChat.messages : [];
             
+            // Determine API URL based on environment
+            const apiUrl = process.env.NODE_ENV === 'development' 
+                ? 'http://localhost:3001/api/v1/ai/chat'
+                : 'https://portfoliobackend-np5j.onrender.com/api/v1/ai/chat';
+            
             // Make API call to backend
-            const response = await fetch('http://localhost:3001/api/v1/ai/chat', {
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
