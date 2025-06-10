@@ -19,14 +19,23 @@ function Chat() {
                     </div>
                     <div>
                         <div className="grid grid-cols-3 gap-24 mt-24">
-                            <div className="bg-radial from-pink-400 from-40% to-fuchsia-700 p-24 pl-32 pr-32 rounded-lg">
-                                View Resume
+                            <div className="flex justify-left items-center bg-radial bg-radial-[at_10%_0%] from-[#FF7DCB]/30 from-10% to-[#F5F5F5] to-50% w-[20rem] h-[12rem] rounded-lg transition-all duration-300 ease-in-out hover:border-gray-200 hover:shadow-lg cursor-pointer">
+                                <div className="flex flex-col mt-10 ml-6">
+                                    <p className="text-2xl font-medium">View my Resume</p>
+                                    <p className="text-md font-light text-[#737373]">Take a look at my resume as a PDF</p>
+                                </div>
                             </div>
-                            <div className="bg-gradient-to-tr from-[#F5F5F5] from-70% to-[#FF7DCB] p-24 pl-32 pr-32 rounded-lg">
-                                My Skills
+                            <div className="flex justify-left items-center bg-radial bg-radial-[at_10%_0%] from-[#FF7DCB]/30 from-10% to-[#F5F5F5] to-50% w-[20rem] h-[12rem] rounded-lg transition-all duration-300 ease-in-out hover:border-gray-200 hover:shadow-lg cursor-pointer">
+                                <div className="flex flex-col mt-10 ml-6">
+                                    <p className="text-2xl font-medium">My Skills</p>
+                                    <p className="text-md font-light text-[#737373]">View my languages & frameworks</p>
+                                </div>
                             </div>
-                            <div className="bg-gradient-to-tr from-[#F5F5F5] from-70% to-[#FF7DCB] p-24 pl-32 pr-32 rounded-lg">
-                                My Projects
+                            <div className="flex justify-left items-center bg-radial bg-radial-[at_10%_0%] from-[#FF7DCB]/30 from-10% to-[#F5F5F5] to-50% w-[20rem] h-[12rem] rounded-lg transition-all duration-300 ease-in-out hover:border-gray-200 hover:shadow-lg cursor-pointer">
+                                <div className="flex flex-col mt-10 ml-6">
+                                    <p className="text-2xl font-medium">My Projects</p>
+                                    <p className="text-md font-light text-[#737373]">See projects I've proudly completed</p>
+                                </div>
                             </div>
                         </div>
                     </div>
