@@ -103,6 +103,7 @@ function Ask() {
     };
 
     return (
+        <>
         <div className="flex flex-col w-full min-h-[150px]">
             <div className="flex flex-col h-full p-4">
                 <div className="flex flex-col h-full bg-[#F2F2F2] rounded-2xl">
@@ -161,6 +162,7 @@ function Ask() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

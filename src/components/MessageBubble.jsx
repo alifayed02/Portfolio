@@ -2,6 +2,7 @@ function MessageBubble({ message }) {
     const isUser = message.type === 'user';
     
     return (
+        <>
         <div className={`flex w-full mb-4 ${isUser ? 'justify-end' : 'justify-start'}`}>
             <div className={`flex max-w-[70%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
                 {/* Message Content */}
@@ -39,6 +40,7 @@ function MessageBubble({ message }) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

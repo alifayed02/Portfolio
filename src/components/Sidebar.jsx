@@ -23,7 +23,8 @@ function Sidebar() {
     };
 
     return (
-        <div className="bg-[#DBDBDB] h-screen w-1/4 min-w-[300px] flex flex-col">
+        <>
+        <div className="flex bg-[#DBDBDB] h-full w-1/4 min-w-[300px] flex flex-col">
             {/* Traffic */}
             <div className="flex">
                 <div 
@@ -122,6 +123,7 @@ function Sidebar() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

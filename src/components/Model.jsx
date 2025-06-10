@@ -3,6 +3,7 @@ import { GrNewWindow } from "react-icons/gr";
 
 function Model() {
     return (
+        <>
         <div className="flex items-center bg-[#F2F2F2] w-full max-h-[75px] h-[75px]">
             <div className="flex justify-between items-center w-full ml-5 mr-5">
                 <div className="flex">
@@ -15,6 +16,7 @@ function Model() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

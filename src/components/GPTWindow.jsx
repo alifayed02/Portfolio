@@ -6,6 +6,7 @@ import { ChatProvider } from '../contexts/ChatContext';
 
 function GPTWindow() {
     return (
+        <>
         <ChatProvider>
             <div className="flex h-screen w-screen">
                 <Sidebar />
@@ -16,6 +17,7 @@ function GPTWindow() {
                 </div>
             </div>
         </ChatProvider>
+        </>
     )
 }
 
