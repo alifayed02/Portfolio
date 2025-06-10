@@ -1,12 +1,22 @@
+import { useEffect, useRef } from 'react';
 import { useChat } from '../contexts/ChatContext';
 import MessageBubble from './MessageBubble';
+import LoadingIndicator from './LoadingIndicator';
 
 function Chat() {
-    const { getCurrentChat, addMessage, startNewChat } = useChat();
+    const { getCurrentChat, addMessage, startNewChat, setChatLoading } = useChat();
     const currentChat = getCurrentChat();
+    const chatContainerRef = useRef(null);
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [currentChat?.messages]);
 
     const handleCardClick = async (userMessage) => {
         const newChatId = startNewChat(userMessage);
+        setChatLoading(newChatId, true);
 
         try {
             const apiUrl = process.env.NODE_ENV === 'development'
@@ -43,6 +53,8 @@ function Chat() {
                 content: `Sorry, I'm having trouble connecting to the server. Please try again later.`,
             });
             console.error('Error calling AI chat API:', error);
+        } finally {
+            setChatLoading(newChatId, false);
         }
     };
 
@@ -106,11 +118,16 @@ function Chat() {
     return (
         <>
         <div className="flex flex-col w-full h-full overflow-hidden">
-            <div className="flex-1 overflow-y-auto px-6 py-4">
+            <div ref={chatContainerRef} className="flex-1 overflow-y-auto px-6 py-4">
                 <div className="">
                     {currentChat.messages.map((message) => (
                         <MessageBubble key={message.id} message={message} />
                     ))}
+                    {currentChat.isLoading && (
+                        <div className="flex w-full mb-4 justify-start">
+                            <LoadingIndicator />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

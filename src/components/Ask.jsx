@@ -1,11 +1,11 @@
 import { PiSelection } from "react-icons/pi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useChat } from '../contexts/ChatContext';
 
 function Ask() {
     const [text, setText] = useState("");
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const { currentChatId, addMessage, getCurrentChat } = useChat();
+    const { currentChatId, addMessage, getCurrentChat, setChatLoading } = useChat();
 
     const handleTextChange = (e) => {
         const newText = e.target.value;
@@ -33,32 +33,27 @@ function Ask() {
         
         const userMessage = text.trim();
         
-        // Add user message immediately
         addMessage(currentChatId, {
             type: 'user',
             content: userMessage
         });
         
-        // Clear the input
         setText("");
         
-        // Reset textarea height
         const textarea = document.querySelector('textarea');
         if (textarea) {
             textarea.style.height = 'auto';
         }
-        
+
+        setChatLoading(currentChatId, true);
         try {
-            // Get current chat history for the API call
             const currentChat = getCurrentChat();
             const history = currentChat ? currentChat.messages : [];
             
-            // Determine API URL based on environment
             const apiUrl = process.env.NODE_ENV === 'development' 
                 ? 'http://localhost:3001/api/v1/ai/chat'
                 : 'https://portfoliobackend-np5j.onrender.com/api/v1/ai/chat';
             
-            // Make API call to backend
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -73,25 +68,24 @@ function Ask() {
             const data = await response.json();
             
             if (data.success) {
-                // Add AI response to chat
                 addMessage(currentChatId, {
                     type: 'assistant',
                     content: data.response
                 });
             } else {
-                // Handle error response
                 addMessage(currentChatId, {
                     type: 'assistant',
                     content: `Sorry, I encountered an error: ${data.response}`
                 });
             }
         } catch (error) {
-            // Handle network or other errors
             addMessage(currentChatId, {
                 type: 'assistant',
                 content: `Sorry, I'm having trouble connecting to the server. Please try again later.`
             });
             console.error('Error calling AI chat API:', error);
+        } finally {
+            setChatLoading(currentChatId, false);
         }
     };
 
@@ -163,7 +157,7 @@ function Ask() {
             </div>
         </div>
         </>
-    )
+    );
 }
 
-export default Ask;
+export default Ask; 
